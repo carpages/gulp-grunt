@@ -1,0 +1,6 @@
+{
+  "extends": "carpages",
+  "env": {
+    "mocha": true
+  }
+}
