@@ -1,7 +1,7 @@
 module.exports = function( grunt ) {
   grunt.registerTask( 'test', 'does blah', function() {
     console.log( '[test] you should probably see that it has tested' );
-    throw new Error( 'I\'m and error' );
+    throw new Error( "I'm and error" );
   });
 
   grunt.registerTask( 'error', 'makes an error', function() {

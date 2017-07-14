@@ -1,7 +1,7 @@
 var grunt = require( 'grunt' );
 var spawn = require( 'child_process' ).spawn;
 
-var gruntCmd = ( process.platform === 'win32' ) ? 'grunt.cmd' : 'grunt';
+var gruntCmd = process.platform === 'win32' ? 'grunt.cmd' : 'grunt';
 
 var makeOptions = function( options ) {
   var baseOptions = {
@@ -35,7 +35,7 @@ module.exports = function( gulp, options ) {
   }
 };
 
-var getTasks = module.exports.tasks = function( options ) {
+var getTasks = ( module.exports.tasks = function( options ) {
   var opt = makeOptions( options );
 
   var oldCwd = process.cwd();
@@ -43,7 +43,7 @@ var getTasks = module.exports.tasks = function( options ) {
 
   grunt.file.setBase( cwd );
 
-  var gruntCliDir = opt.path ? ( opt.path + '/' ) : '';
+  var gruntCliDir = opt.path ? opt.path + '/' : '';
 
   grunt.task.init([]);
 
@@ -57,17 +57,15 @@ var getTasks = module.exports.tasks = function( options ) {
       if ( opt.verbose ) {
         console.log( '[grunt-gulp] Running Grunt "' + name + '" task...' );
       }
-      var args = opt.force ? [ name, '--force', '--verbose=' + opt.verbose ] : [ name, '--verbose=' + opt.verbose ];
+      var args = opt.force
+        ? [ name, '--force', '--verbose=' + opt.verbose ]
+        : [ name, '--verbose=' + opt.verbose ];
       for ( var key in opt ) {
         if ( key !== 'base' && key !== 'prefix' ) {
           args = args.concat( '--' + key + '=' + opt[key]);
         }
       }
-      var child = spawn(
-        gruntCliDir + gruntCmd,
-        args,
-        { cwd: cwd }
-      );
+      var child = spawn( gruntCliDir + gruntCmd, args, { cwd: cwd });
       child.stdout.on( 'data', function( d ) {
         grunt.log.write( d );
       });
@@ -79,7 +77,9 @@ var getTasks = module.exports.tasks = function( options ) {
           grunt.log.ok( '[grunt-gulp] Done running Grunt "' + name + '" task.' );
         }
         if ( code !== 0 ) {
-          grunt.fail.warn( '[grunt-gulp] Failed running Grunt "' + name + '" task.' );
+          grunt.fail.warn(
+            '[grunt-gulp] Failed running Grunt "' + name + '" task.'
+          );
         }
         cb();
       });
@@ -98,4 +98,4 @@ var getTasks = module.exports.tasks = function( options ) {
   }
 
   return finalTasks;
-};
+});
