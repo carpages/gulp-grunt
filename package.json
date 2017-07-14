@@ -1,15 +1,12 @@
 {
-  "name": "gulp-grunt",
+  "name": "@carpages/gulp-grunt",
   "description": "Run grunt tasks from gulp",
   "version": "0.5.5",
   "homepage": "http://github.com/gratimax/gulp-grunt",
   "repository": "git://github.com/gratimax/gulp-grunt.git",
   "author": "gratimax <max@ovsankin.com>",
   "main": "./index.js",
-  "keywords": [
-    "gulpfriendly",
-    "grunt"
-  ],
+  "keywords": ["gulpfriendly", "grunt"],
   "dependencies": {
     "grunt": "^1.0.1"
   },
